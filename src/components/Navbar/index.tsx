@@ -27,10 +27,10 @@ const Navbar = () => {
                     </div>
                     <div className="hidden sm:ml-6 sm:block">
                     <div className="flex space-x-4">
-                        <button onClick={() => navigate('/')} className="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Home</button>
-                        <button onClick={() => navigate('/register')} className="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Register</button>
+                        <button onClick={() => navigate('/')} className="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Register</button>
                         <button onClick={() => navigate('/login')} className="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Login</button>
                         <button onClick={() => navigate('/list')} className="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">List</button>
+                        <button onClick={() => navigate('/createCategory')} className="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Create Category</button>
                     </div>
                     </div>
                 </div>

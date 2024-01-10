@@ -1,9 +1,8 @@
 
 import './App.css'
-import { HomeContainer, RegisterContainer, LoginContainer, ListContainer, ProtectContainer } from './containers';
-//import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HomeContainer, LoginContainer, ListContainer } from './containers';
+import CreateCategory from './containers/CreateCategoryContainer';
 import PublicLayout from './layouts/PublicLayout';
-import ProtectLayout from './layouts/ProtectLayout';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 function App() {
@@ -17,16 +16,16 @@ function App() {
           element: <HomeContainer />
         },
         {
-          path: '/register',
-          element: <RegisterContainer />
-        },
-        {
           path: '/login',
           element: <LoginContainer />
         },
         {
-          path: '/list-detail/:id',
+          path: '/list',
           element: <ListContainer />
+        },
+        {
+          path: '/createCategory',
+          element: <CreateCategory />
         },
 
       ]
@@ -35,35 +34,12 @@ function App() {
       path: '*',
       element: <h1>404</h1>
     },
-    {
-      element: <ProtectLayout />,
-      children: [
-        {
-          path: '/protect',
-          element: <ProtectContainer />
-        },
-      ]
-    }
-  ])
+  ]);
 
   return (
     <div className="app">
       <RouterProvider router={router} />
-      {/*<BrowserRouter>
-        <Routes>
-          <Route element={<PublicLayout />}>
-            <Route path='/' element={<HomeContainer />}/>
-            <Route path='/register' element={<RegisterContainer />}/>
-            <Route path='/login' element={<LoginContainer />}/>
-          </Route>
-          <Route path='*' element={<h1>404</h1>}/>
-        </Routes>
-      </BrowserRouter>*/}
     </div>
-    
-    //<div className="app">
-    //  <HomeContainer />
-    //</div>
   )
 }
 

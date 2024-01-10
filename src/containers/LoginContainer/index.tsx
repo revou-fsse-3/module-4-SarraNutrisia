@@ -1,69 +1,64 @@
-import { useSearchParams } from 'react-router-dom';
-import { Input, Text, Button, Card, Table } from '../../components';
+import { Input, Text, Button, Card } from '../../components';
 import { useFormik } from 'formik';
-import { useState } from 'react';
 import * as yup from 'yup';
+import { useNavigate } from 'react-router-dom';
 
-interface DataProps {
-    email: string;
-    password: string;
-}
 
 const LoginContainer = () => {
 
-    const [searchParams] = useSearchParams();
-
-    console.log(searchParams.get('queryKey'))
-
-    const [users, setUsers] = useState<DataProps[]>([]);
-    const [selectedUser, setSelectedUser] = useState<DataProps>();
-    const [step, setStep] = useState<number>(1);
-
-    const handleNext = () => {
-        if(step === 3) {
-            return
-        }
-        setStep((prevState) => prevState + 1);
+    const navigate = useNavigate();
+    
+    interface DataProps {
+        email: string;
+        password: string;
     }
 
-    const handlePrevious = () => {
-        if (step === 1) {
-            return 
-        }
-        setStep((prevState) => prevState -1);
-    }
-
-    const formMik = useFormik({
-        initialValues: selectedUser ?? {
+    const formMik = useFormik<DataProps>({
+        initialValues: {
             email: '',
             password: ''
         },
-        onSubmit: (values, { resetForm }) => {
-            setUsers([...users, values])
-            resetForm()
-        },
-        validationSchema:yup.object({
-            email: yup.string().required(),
-            password: yup.string().required()
+
+        onSubmit: async (values) => {
+            try {
+              const response = await fetch(
+                'https://mock-api.arikmpt.com/api/user/login',
+                {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify(values),
+                }
+              );
+      
+              if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+              } else {
+                
+                const data = await response.json();
+                
+                localStorage.setItem('token', data.data.token);
+                console.log(data);
+                
+                navigate('/list');
+              }
+            } catch (error) {
+              
+              console.log(
+                'Your fetch operation has a problem : ' +
+                  (error as Error).message
+              );
+            }
+          },
+
+          validationSchema:yup.object({
+            email: yup.string().email('Email tidak valid').required('Email tidak boleh kosong'),
+            password: yup.string().min(8, 'Password minimal terdiri dari 8 karakter').required('Password tidak boleh kosong'),
         }),
-        enableReinitialize: true
     });
 
-    const onDelete = (index: number) => {
-        setUsers((prevState) => prevState.filter((_, dataIndex) => dataIndex !== index))
-    }
-
-    const onEdit = (index: number) => {
-        const findUser = users.find((_, dataIndex) => dataIndex === index);
-
-        setSelectedUser(findUser);
-    
-    }
-
-    const handleInsertToken = () => {
-        localStorage.setItem('token', 'aksjsjjdjfajfbah')
-    }
-
+   
     return (
         <div style={{display:'flex'}} className='justify-center align-center mt-44'>
         <Card border={false} >
@@ -87,6 +82,7 @@ const LoginContainer = () => {
                     <Text>{'Password'}</Text>
                     <Input className="block border-neutral-400 border"
                          name={'password'}
+                         type={'password'}
                          value={formMik.values.password}
                          onChange={formMik.handleChange('password')}
                          />
@@ -96,50 +92,9 @@ const LoginContainer = () => {
                             )
                          }
                 </div>
-                <Button label={'Submit'} type={'submit'} className={'bg-green-500'}/>
-
+                <Button label={'Login'} type={'submit'} className={'bg-green-500'}/>
             </form>   
         </Card>
-        {/* <Card border>
-            <Table headers={[
-                {
-                    label: 'Email',
-                    key: 'email'
-                },
-                {
-                    label: 'Password',
-                    key: 'password'
-                }
-            ]} data={users}
-            onEdit={onEdit}
-            onDelete={onDelete}/>
-        </Card> */}
-        {/* <Card border>
-            {step === 1 && (
-                <div>
-                    A
-                </div>
-            )}
-            
-            {step === 2 && (
-                <div>
-                    B
-                </div>
-            )}
-            
-            {step === 3 && (
-                <div>
-                    C
-                </div>
-            )}
-            <Button label={'Previous'} onClick={handlePrevious} type={'button'} className={'bg-green-500'}/>
-            <Button label={'Next'} onClick={handleNext} type={'button'} className={'bg-green-500'}/>
-
-        </Card> */}
-        {/* <Card border>
-            <Button label='Login' onClick={handleInsertToken}/>
-
-        </Card> */}
     </Card>
      </div>   
     )
