@@ -9,10 +9,14 @@ export const createCategory = async (data: CategoryData, token: string) => {
   });
 };
 
-export const updateCategory = async (data: CategoryData, token: string) => {
-  return await axios.put(`${baseURL}/update`, data, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+export const updateCategory = async (id: string, name: string, is_active: boolean, token: string
+) => {
+  const response = await axios.put(
+    `${baseURL}/update`,
+    { id, name, is_active },
+    { headers: { Authorization: `Bearer ${token}` } }
+  );
+  return response.data;
 };
 
 export const getCategories = async (token: string) => {

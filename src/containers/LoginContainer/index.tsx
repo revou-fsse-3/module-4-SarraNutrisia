@@ -8,12 +8,12 @@ const LoginContainer = () => {
 
     const navigate = useNavigate();
     
-    interface DataProps {
+    interface FormProps {
         email: string;
         password: string;
     }
 
-    const formMik = useFormik<DataProps>({
+    const formMik = useFormik<FormProps>({
         initialValues: {
             email: '',
             password: ''
@@ -61,11 +61,11 @@ const LoginContainer = () => {
    
     return (
         <div style={{display:'flex'}} className='justify-center align-center mt-44'>
-        <Card border={false} >
-            <Card border>
+        <Card border={false} className=" ">
+            <Card border className="bg-white shadow-xl rounded-lg p-8">
             <form onSubmit={formMik.handleSubmit} >
                 
-                <div>
+                <div className= "m-1">
                     <Text>{'Email'}</Text>
                     <Input className="block border-neutral-400 border"
                          name={'email'}
@@ -78,7 +78,7 @@ const LoginContainer = () => {
                             )
                          }
                 </div>
-                <div className='my-4'>
+                <div className='m-1'>
                     <Text>{'Password'}</Text>
                     <Input className="block border-neutral-400 border"
                          name={'password'}
@@ -92,11 +92,14 @@ const LoginContainer = () => {
                             )
                          }
                 </div>
-                <Button label={'Login'} type={'submit'} className={'bg-green-500'}/>
+                <Button label={'Register'} onClick={() => navigate('/')}/>
+
+
+                <Button label={'Login'} type={'submit'}/>
             </form>   
         </Card>
     </Card>
-     </div>   
+  </div>   
     )
 }
 

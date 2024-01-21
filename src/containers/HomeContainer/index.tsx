@@ -8,14 +8,14 @@ const HomeContainer = () => {
 
     const navigate = useNavigate();
 
-    interface DataProps {
+    interface FormProps {
         name: string;
         email: string;
         password: string;
       }
 
 
-    const formMik = useFormik<DataProps>({
+    const formMik = useFormik<FormProps>({
         initialValues: {
             name: '',
             email: '',
@@ -51,7 +51,7 @@ const HomeContainer = () => {
             alignItems: "center" 
         }}>
             <form onSubmit={formMik.handleSubmit}>
-                <div>
+                <div className="m-1">
                     <Text>{'Name'}</Text>
                     <Input className="block border-neutral-400 border"
                          name={'name'}
@@ -64,7 +64,7 @@ const HomeContainer = () => {
                             )
                          }
                 </div>
-                <div>
+                <div className="m-1">
                     <Text>{'Email'}</Text>
                     <Input className="block border-neutral-400 border"
                          name={'email'}
@@ -77,7 +77,7 @@ const HomeContainer = () => {
                             )
                          }
                 </div>
-                <div className='my-4'>
+                <div className='m-1'>
                     <Text>{'Password'}</Text>
                     <Input className="block border-neutral-400 border"
                          name={'password'}
@@ -91,7 +91,9 @@ const HomeContainer = () => {
                             )
                          }
                 </div>
-                <Button label={'Submit'} type={'submit'} className={'bg-green-500'}/>
+                <Button label={'Submit'} type={'submit'}/>
+
+                <Button label={'Login'} onClick={() => navigate('/login')}/>
             </form>   
         </Card>
     </Card>

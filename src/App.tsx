@@ -1,7 +1,6 @@
 
 import './App.css'
-import { HomeContainer, LoginContainer, ListContainer } from './containers';
-import CreateCategory from './containers/CreateCategoryContainer';
+import { HomeContainer, LoginContainer, ListContainer, CreateCategory } from './containers';
 import PublicLayout from './layouts/PublicLayout';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
@@ -32,7 +31,7 @@ function App() {
     },
     {
       path: '*',
-      element: <h1>404</h1>
+      element: <h1>Page Not Found</h1>
     },
   ]);
 
