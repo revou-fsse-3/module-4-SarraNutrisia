@@ -53,7 +53,7 @@ export default {
 
 
 # Deployment Link 🚀
-You can check the Deployment of this website by clicking this link : [Link Netlify](https://astounding-donut-be23da.netlify.app/) 
+You can check the Deployment of this website by clicking this link : [Link Netlify](https://branchweek10--remarkable-moxie-a10d78.netlify.app/) 
   
 ***
 
